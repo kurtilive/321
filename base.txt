@@ -1,0 +1,65 @@
+create database 'localhost:D:/db/FLAT2.fdb' user 'SYSDBA' password 'masterkey'
+default character set win1251;
+
+CREATE TABLE PEOPLES
+(
+ID_PPL int NOT NULL primary key,
+SECONDNAME varchar(12),
+FIRSTNAME varchar(12),
+PATRONYMIC varchar(12),
+PHONE varchar (11),
+PASSPORT_NUMBER varchar (11)
+);
+
+CREATE TABLE DISTRICTS
+(
+ID_DISTRICT int NOT NULL primary key,
+DISTRICTNAME varchar(15)
+); 
+
+CREATE TABLE TYPE_H
+(
+ID_TYPE int NOT NULL primary key,
+TYPENAME varchar(15)
+); 
+
+CREATE TABLE METROSTATE
+(
+ID_STATE int NOT NULL primary key,
+STATENAME varchar(25)
+);
+
+
+CREATE TABLE FLATS
+(
+ID_KV int NOT NULL primary key,
+Rooms int,
+S DECIMAL(5,2),
+S_Y varchar(3),
+etaj int,
+ydal int,
+lift varchar(3),
+m_p varchar (3),
+cash int,
+DISTRICT int, FOREIGN KEY (DISTRICT) REFERENCES DISTRICTS(ID_DISTRICT),
+METRO int, FOREIGN KEY (METRO) REFERENCES METROSTATE(ID_STATE),
+ID_OWNER int, FOREIGN KEY(ID_OWNER) REFERENCES PEOPLES(ID_PPL),
+TYPE int, FOREIGN KEY(TYPE) REFERENCES TYPE_H (ID_TYPE)
+);
+
+CREATE TABLE ROOMS
+(
+ID_ROOM int,
+ID_FLAT int, FOREIGN KEY (ID_FLAT) REFERENCES FLATS(ID_KV),
+S int
+);
+
+CREATE TABLE DEAL
+(
+ID_DEAL int,
+ID_SALER int, FOREIGN KEY (ID_SALER) REFERENCES PEOPLES (ID_PPL),
+ID_POKUP int, FOREIGN KEY (ID_POKUP) REFERENCES PEOPLES (ID_PPL),
+DEALCASH int
+);
+
+	
